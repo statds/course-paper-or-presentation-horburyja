@@ -5,7 +5,7 @@
 \usepackage[margin = 1in]{geometry}
 
 %% metadata
-\title{Bot Detection in Chess WIP}
+\title{An Analysis of Engine vs. Player Detection in Online Chess using the Jenson-Shannon Divergence}
 \author{James Horbury\\
     University of Connecticut
 }
@@ -18,13 +18,31 @@
 \addcontentsline{toc}{section}{Introduction}
 \label{sec:intro}
 
+Recently there has been a very high profile case of alleged cheating in the world of professional chess 
+where the current reigning world chess champion, GM Magnus Carelson, was defeated by GM Hans Niemann, a player 
+that was ranked 42nd in the world and experineced massive growth in FIDE rating in the past two years. This 
+has caused many skeptics in the chess community, including Carelson himself, to suspect cheating may have been at
+play. The ensuing comotion has caused many hobbiest, like myself, to stop and consider how pervasive cheating
+really is in chess, more noteably in online venues, and what methods are employed to flag engine-aided moves.
+
+Current research (link) is being done by Dr. Kenneth R. Regan, of the Computer Science and Engineering 
+Department of the University at Buffalo, employing the use of the Jenson-Shannon Divergence as a measure of 
+similarity between two distributions.
+
 \section*{Specific Aims}
 \addcontentsline{toc}{section}{Specific Aims}
 \label{sec:spec}
 
+Specifically, I would like to investigate how accurate this method of cheat detection is when using a dataset 
+of engine vs. player games as opposed to player vs. player games. This leads me to question the standard at 
+which cheating in chess is measured and whether accusations/bans of alleged cheating are issued justly. I chose 
+to conduct an analysis of this method of cheat detection to promote transparency in this regard.
+
 \section*{Data Description}
 \addcontentsline{toc}{section}{Data Description}
 \label{sec:data}
+
+
 
 \section*{Research Design/Methods/Schedule}
 \addcontentsline{toc}{section}{Research Design/Methods/Schedule}

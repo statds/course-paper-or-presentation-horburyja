@@ -1,8 +1,13 @@
+# generated files
 Proposal/proposal.aux
 Proposal/proposal.bbl
 Proposal/proposal.blg
 Proposal/proposal.fdb_latexmk
 Proposal/proposal.fls
 Proposal/proposal.log
+Proposal/proposal.out
+Proposal/proposal.pdf
 Proposal/proposal.synctex.gz
+
+# notes
 Proposal/notes.txt

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.9.22)  7 NOV 2022 10:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.9.22)  7 NOV 2022 10:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -264,6 +264,7 @@ File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 \everyMPtoPDFconversion=\toks21
 )) (C:\Users\james\AppData\Local\Programs\MiKTeX\tex/latex-dev/graphics\mathcolor.ltx))
 Package hyperref Info: Link coloring ON on input line 17.
+ (manuscript.out) (manuscript.out)
 \@outlinefile=\write3
 \openout3 = `manuscript.out'.
 
@@ -271,19 +272,24 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <14.4> on input line 19.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 19.
-)
-! Emergency stop.
-<*> ...4W/Research_Paper/Manuscript/manuscript.tex
-                                                  
-*** (job aborted, no legal \end found)
+ [1
 
- 
+{C:/Users/james/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] (manuscript.aux)
+Package rerunfilecheck Info: File `manuscript.out' has not changed.
+(rerunfilecheck)             Checksum: FF9EB6DA4E53D9C6D9BFD02D69876F89;796.
+ ) 
 Here is how much of TeX's memory you used:
- 8742 strings out of 478338
- 139759 string characters out of 2836700
- 441568 words of memory out of 3000000
- 27106 multiletter control sequences out of 15000+600000
+ 8779 strings out of 478338
+ 140345 string characters out of 2836700
+ 445996 words of memory out of 3000000
+ 27125 multiletter control sequences out of 15000+600000
  471375 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,6n,77p,299b,397s stack positions out of 10000i,1000n,20000p,200000b,80000s
-!  ==> Fatal error occurred, no output PDF file produced!
+ 72i,6n,77p,299b,429s stack positions out of 10000i,1000n,20000p,200000b,80000s
+<C:/Users/james/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/james/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/james/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on manuscript.pdf (1 page, 43743 bytes).
+PDF statistics:
+ 65 PDF objects out of 1000 (max. 8388607)
+ 11 named destinations out of 1000 (max. 500000)
+ 73 words of extra memory for PDF output out of 10000 (max. 10000000)
+

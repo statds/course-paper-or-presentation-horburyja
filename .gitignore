@@ -9,11 +9,13 @@ Proposal/proposal.out
 Proposal/proposal.pdf
 Proposal/proposal.synctex.gz
 
-Manuscript/mauscript.aux
-Manuscript/mauscript.fdb_latexmk
-Manuscript/mauscript.fls
-Manuscript/mauscript.log
-Manuscript/mauscript.out
+Manuscript/manuscript.aux
+Manuscript/manuscript.fdb_latexmk
+Manuscript/manuscript.fls
+Manuscript/manuscript.log
+Manuscript/manuscript.out
+Manuscript/manuscript.pdf
+Manuscript/manuscript.syntex.gz
 
 # notes
 Proposal/notes.txt

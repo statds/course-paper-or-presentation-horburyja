@@ -27,9 +27,22 @@
 \addcontentsline{toc}{section}{Introduction}
 \label{sec:intro}
 
+Recently there has been a very high profile case of alleged cheating in the world of professional chess 
+where the current reigning world chess champion, GM Magnus Carelson, was defeated by GM Hans Niemann, a player 
+that was ranked 42nd in the world and experineced massive growth in FIDE rating in the past two years. This 
+has caused many skeptics in the chess community, including Carelson himself, to suspect cheating may have been 
+at play. The ensuing comotion has caused many hobbiests to stop and consider how pervasive cheating
+really is in chess, more noteably in online venues, and what methods are employed to flag games with alleged 
+engine-aided moves. This paper will surve as an analysis of the currently available methods of cheat detection 
+and for which cases they are more or less robust.
+
+Current research \citep{regan2011understanding} has been done by Dr. Kenneth R. Regan, of the Computer Science and Engineering Department of the University at Buffalo, employing the use of a model that utilizes the Jenson-Shannon Divergence as a basis for detecting player vs. engine games. However, there is much scrutiny over the transparency of his methods and their effectiveness on different "intensities" of cheating. There are also other \href{https://github.com/MGleason1/PGN-Spy}{open-source options} that can provide an indepth analysis of move-for-move comparisons in specific games, an area where Dr. Regan's model appears to be weak.
+
 \section*{Data}
 \addcontentsline{toc}{section}{Data}
 \label{sec:data}
+
+% insert data from lichess
 
 \section*{Methods}
 \addcontentsline{toc}{section}{Methods}
@@ -38,6 +51,8 @@
 \section*{Simulation}
 \addcontentsline{toc}{section}{Simulation}
 \label{sec:sim}
+
+% push code from local repo
 
 \section*{Application}
 \addcontentsline{toc}{section}{Application}

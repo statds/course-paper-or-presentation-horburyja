@@ -52,7 +52,9 @@ The data used was provided by Lichess.com, a free and open-source internet chess
 \addcontentsline{toc}{section}{Methods}
 \label{sec:sim}
 
-% push code from local repo
+% code and resulting figures still in progress, for now just show data provided by ratings.fide.com
+
+After the raw data was cleaned and organized so that only data concerning Niemann's games remained, the CPL of each players moves was calculated using Stockfish, a free and open-source chess engine. The sum of these values divided by the total number of moves for each player yielded the ACPL of both Niemann and his opponent for that game. No calculation was required for ELO score, since that data was provide in the original dataset. Then, in thoery I would have ploted average centipawn loss for each game versus Niemann's then ELO ranking, but the code for this part of my research is still a bit buggy and is not producing the figures that I need to discuss Niemann's sensational jump in ACPL with regard to his current ELO ratings and then compare this to a simlar figure of the standard centipawn loss for every other player in the dataset. For now I can show his rating as according to fide.com, the website of the international chess federation that calculates and logs these scores over a players professional history.
 
 \section*{Application}
 \addcontentsline{toc}{section}{Application}

@@ -7,6 +7,7 @@
 \usepackage{natbib}
 \usepackage[colorlinks=true, citecolor=blue]{hyperref}
 \usepackage{graphicx}
+\usepackage{subcaption}
 
 %% metadata
 \title{An Analysis of the Use of Average Centipawn Loss to Detect Cheating in Chess}
@@ -22,7 +23,9 @@
 \addcontentsline{toc}{section}{Abstract}
 \label{sec:abs}
 
-% revisit when research is completed
+Evolutions in chess computing have allowed for extensive libraries of past games to be analyzed again utlizing centipawn math. A recent scandal involving the alleged cheating of Chess Grandmaster Hans Niemann in the sphere of professional chess has launched a conversation about how cheaters can be detected statistically to the forefront of Academic Data Science. This paper will explore how one might detect cheating using average centipawn loss and whether these methods are reliable enough to become a standard in the chess proctors handbook.
+
+Keywords: Centipawn math, Niemann, Carlsen, Chess
 
 \section*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
@@ -32,10 +35,9 @@ Over the past few months, the global chess community has been shaken by a very h
 
 Carlsen didn't immediately state the reason as to why he withdrew at first, though many correctly assumed that he was holding his tongue in making any sort of public accusation to avoid a potential retaliatory lawsuit for slander. It should be noted that Carlsen played Niemann again two weeks later in the Julius Baer Generation Cup, but resigned after his second move, perpetuating rumors of the scandal even further. This has become a matter of significant speculation both inside and outside the chess world given the nature of the situation and the people involved. 
 
-The first game was played “over the board” (OTB) in contrast to “virtual chess” which is hosted online. Cheating in online chess is very easy. One simply needs to run a chess engine (like Stockfish) and execute the moves from their game into the engine as they played, following up with whichever move it suggested they play next. Cheating OTB is not as simple. Players are commonly required to pass through a metal detector and are not permitted to bring phones or any other electronic devices with them (see the afore mentioned article about the famous concealed shoe computer).
+The first game was played “over the board” (OTB) in contrast to “virtual chess” which is hosted online. Cheating in online chess is very easy. One simply needs to run a chess engine (like Stockfish) and execute the moves from their game into the engine as they played, following up with whichever move it suggested they play next. Cheating OTB is not as simple. Players are commonly required to pass through a metal detector and are not permitted to bring phones or any other electronic devices with them.
 
-The specific allegations related to how Niemann cheated OTB are unknown. Also, it would be very hard to prove cheating by simply looking at moves that are made in a single game. But what if you had access to hundreds or even thousand of games from a certain individual over a long stretch of their career?
-Although cheating in online chess should be, in principle, at least as hard to detect as with cheating OTB, with the added disadvantage that you cannot enforce the disallowance of electronic devices, in reality it is quite different. Chess.com, which is used by millions of players has released an expose on their cheat detection methods, specifically with regard to Hans Niemann, who they allege has cheating in many games. The methods used include (1) comparing moves made to engine-recommended moves, (2) comparing player past performances to their historical strength, (3) comparing a player's performance to comparable peers, (4) looking at behavioral factors, and (5) reviewing time usage for finding "easy" vs. "difficult" moves.  
+The specific allegations related to how Niemann cheated OTB are unknown. Also, it would be very hard to prove cheating by simply looking at moves that are made in a single game. But what if you had access to hundreds or even thousand of games from a certain individual over a long stretch of their career? Although cheating in online chess should be, in principle, at least as hard to detect as with cheating OTB, with the added disadvantage that you cannot enforce the disallowance of electronic devices, in reality it is quite different. Chess.com, which is used by millions of players has released an expose on their cheat detection methods, specifically with regard to Hans Niemann, who they allege has cheating in many games \citep{erikallebest2022}. The methods used include (1) comparing moves made to engine-recommended moves, (2) comparing player past performances to their historical strength, (3) comparing a player's performance to comparable peers, (4) looking at behavioral factors, and (5) reviewing time usage for finding "easy" vs. "difficult" moves.  
 
 Item 2 requires an assessment of move quality, which is usually done in centipawns. The centipawn is a unit of measure used in chess to quantify advantage. A centipawn is equal to 1/100 of a pawn and, although these values play no formal role in the game, they are useful to players and chess computers alike in order to evaluate positions. Centipawn loss is a calculation and numerical score given by a chess engine as the difference between the move an individual actually plays and the "strongest" move available at the time as computed by the engine. Therefore, average centipawn loss would be a calculation of the average loss incurred by each move over any particular game.
 
@@ -62,13 +64,25 @@ After the raw data was cleaned and organized so that only data concerning Nieman
 \label{sec:app}
 
 % how to make individual images that are different resolutions the same size?
+\begin{figure}
+    \begin{subfigure}{.5\textwidth}
+    \includegraphics[scale=0.2]{niemann_rating.png}
+    \caption{Hans Niemann's ELO ratings over time.}
+    \label{fig:sfig1}
+    \end{subfigure}
 
-\includegraphics[scale=0.3]{niemann_rating.png}
-
-\includegraphics[scale=0.5]{carlsen_rating.png}
+    \begin{subfigure}{.5\textwidth}
+    \includegraphics[scale=0.45]{carlsen_rating.png}
+    \caption{Magnus Carlsen's ELO ratings over time.}
+    \label{fig:sfig2}
+    \end{subfigure}
+\label{fig:fig}
+\end{figure}
 
 % report statistical analysis in tables/figures, summarize what they mean
 % discussion to link analysis back to topic
+
+From the figures provided, one can see that the trends in ELO ranking over time for both Niemann and Carlsen are quite different. Although it should be noted that Niemann has had a far shorter professional career than Carlsen, one can observe that he has gone through varying periods of growth and decline whereas Carlsen has been following somewhat of a logarithmic growth pattern. Note: compare equal ranges for Carlsen and Niemann as far as ELO ranking for a more unbiased analysis, this may be inaccurate.
 
 \section*{Discussion}
 \addcontentsline{toc}{section}{Discussion}
@@ -77,12 +91,7 @@ After the raw data was cleaned and organized so that only data concerning Nieman
 % summarize contributions of research and future directions
 The results of this research largely confirm the claims included in Chess.com's report on Niemann however, although the data does indicate suspicious activity, this is not a "cut and dry" case of cheating, so to speak. Observing a single method to detect cheating as we have through average centipawn loss is not enough to confirm for sure that Hans Niemann cheated, both virtually and OTB, more than he claimed but this was never truely the objective of this research. The real question posed here was whether historical records of average centipawn loss compared to his ELO ranking could be treated as a "smoking gun" or surefire way to prove cheating alone; which it does not. Note: Relevant figures not available, fix this later. 
 
-\section*{Appendix}
-\addcontentsline{toc}{section}{Appendix}
-\label{sec:appx}
-
-\section*{References}
-\addcontentsline{toc}{section}{References}
-\label{sec:refs}
+\bibliographystyle{chicago}
+\bibliography{citations}
 
 \end{document}

@@ -35,11 +35,11 @@ Over the past few months, the global chess community has been shaken by a very h
 
 Carlsen didn't immediately state the reason as to why he withdrew at first, though many correctly assumed that he was holding his tongue in making any sort of public accusation to avoid a potential retaliatory lawsuit for slander. It should be noted that Carlsen played Niemann again two weeks later in the Julius Baer Generation Cup, but resigned after his second move, perpetuating rumors of the scandal even further. This has become a matter of significant speculation both inside and outside the chess world given the nature of the situation and the people involved. 
 
-The first game was played “over the board” (OTB) in contrast to “virtual chess” which is hosted online. Cheating in online chess is very easy. One simply needs to run a chess engine (like Stockfish) and execute the moves from their game into the engine as they played, following up with whichever move it suggested they play next. Cheating OTB is not as simple. Players are commonly required to pass through a metal detector and are not permitted to bring phones or any other electronic devices with them.
+The first game was played “over the board” (OTB) in contrast to “virtual chess” which is hosted online. Cheating in online chess is very easy. One simply needs to run a chess engine (like Stockfish) and execute the moves from their game into the engine as they played, following up with whichever move it suggested they play next \citep{kenregan2010}. Cheating OTB is not as simple. Players are commonly required to pass through a metal detector and are not permitted to bring phones or any other electronic devices with them.
 
 The specific allegations related to how Niemann cheated OTB are unknown. Also, it would be very hard to prove cheating by simply looking at moves that are made in a single game. But what if you had access to hundreds or even thousand of games from a certain individual over a long stretch of their career? Although cheating in online chess should be, in principle, at least as hard to detect as with cheating OTB, with the added disadvantage that you cannot enforce the disallowance of electronic devices, in reality it is quite different. Chess.com, which is used by millions of players has released an expose on their cheat detection methods, specifically with regard to Hans Niemann, who they allege has cheating in many games \citep{erikallebest2022}. The methods used include (1) comparing moves made to engine-recommended moves, (2) comparing player past performances to their historical strength, (3) comparing a player's performance to comparable peers, (4) looking at behavioral factors, and (5) reviewing time usage for finding "easy" vs. "difficult" moves.  
 
-Item 2 requires an assessment of move quality, which is usually done in centipawns. The centipawn is a unit of measure used in chess to quantify advantage. A centipawn is equal to 1/100 of a pawn and, although these values play no formal role in the game, they are useful to players and chess computers alike in order to evaluate positions. Centipawn loss is a calculation and numerical score given by a chess engine as the difference between the move an individual actually plays and the "strongest" move available at the time as computed by the engine. Therefore, average centipawn loss would be a calculation of the average loss incurred by each move over any particular game.
+Item 2 requires an assessment of move quality, which is usually done in centipawns. The centipawn is a unit of measure used in chess to quantify advantage. A centipawn is equal to 1/100 of a pawn and, although these values play no formal role in the game, they are useful to players and chess computers alike in order to evaluate positions . Centipawn loss is a calculation and numerical score given by a chess engine as the difference between the move an individual actually plays and the "strongest" move available at the time as computed by the engine. Therefore, average centipawn loss would be a calculation of the average loss incurred by each move over any particular game.
 
 Measures of average centipawn loss can be used to evaluate a player's strength and, theoretically, one can compare ACL to one's ELO rating, a measure of one's relative skill level in zero-sum games such as chess, to observe how well they played with respect to this ranking. The contribution of this paper is to provide an analysis of this method, as a means to detect cheating in chess, by observing suspicious historic activity (i.e., an individual playing well above their rating in terms of ACL) with the goal of scrutinizing whether it should be treated as a "smoking gun" in terms of evidence of cheating; as was the case with Hans Niemann.
 
@@ -49,7 +49,7 @@ The rest of the paper is organized as follows. Section 2 provides specifics abou
 \addcontentsline{toc}{section}{Data}
 \label{sec:data}
 
-The data used was provided by Lichess.com, a free and open-source internet chess server that holds the records of many professional games. It is a comprehensive list of every professional game Hans Niemann has played, both virtually and OTB, from March of 2018 to September of 2022 and is provided in both .csv and .pkl format. Some of the relevant information it contains are what color Niemann and his opponent played and what their respective ELO scores and calculated ACL scores were along with some other unimportant details for this analysis (e.g., ACL score of Niemann's opponent, tournament name and event round, etc.). The main information of concern with regard to the entirety of the data is Niemann's ELO score and calculated ACL score of each game of each particular point in time, as this is what will be used to plot. All other games that included information where Niemann was not playing were dropped from the original dataset provided by Lichess.
+The data used was provided by Lichess.com (via kaggle) \citep{zaidqureshi2022}, a free and open-source internet chess server that holds the records of many professional games. It is a comprehensive list of every professional game Hans Niemann has played, both virtually and OTB, from March of 2018 to September of 2022 and is provided in both .csv and .pkl format. Some of the relevant information it contains are what color Niemann and his opponent played and what their respective ELO scores and calculated ACL scores were along with some other unimportant details for this analysis (e.g., ACL score of Niemann's opponent, tournament name and event round, etc.). The main information of concern with regard to the entirety of the data is Niemann's ELO score and calculated ACL score of each game of each particular point in time, as this is what will be used to plot. All other games that included information where Niemann was not playing were dropped from the original dataset provided by Lichess.
 
 \section*{Simulation/Methods}
 \addcontentsline{toc}{section}{Methods}
@@ -67,13 +67,13 @@ After the raw data was cleaned and organized so that only data concerning Nieman
 \begin{figure}
     \begin{subfigure}{.5\textwidth}
     \includegraphics[scale=0.2]{niemann_rating.png}
-    \caption{Hans Niemann's ELO ratings over time.}
+    \caption{Hans Niemann's ELO ratings over time. \citep{hansniemannrating}}
     \label{fig:sfig1}
     \end{subfigure}
 
     \begin{subfigure}{.5\textwidth}
     \includegraphics[scale=0.45]{carlsen_rating.png}
-    \caption{Magnus Carlsen's ELO ratings over time.}
+    \caption{Magnus Carlsen's ELO ratings over time. \citep{hansniemannrating}}
     \label{fig:sfig2}
     \end{subfigure}
 \label{fig:fig}

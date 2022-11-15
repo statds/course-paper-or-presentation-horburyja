@@ -13,12 +13,15 @@ Proposal/proposal.pdf
 Proposal/proposal.synctex.gz
 
 Manuscript/manuscript.aux
+Manuscript/manuscript.bbl
+Manuscript/manuscript.blg
 Manuscript/manuscript.fdb_latexmk
 Manuscript/manuscript.fls
 Manuscript/manuscript.log
 Manuscript/manuscript.out
 Manuscript/manuscript.pdf
-Manuscript/manuscript.syntex.gz
+Manuscript/manuscript.synctex.gz
 
-# notes
+# misc
 Proposal/notes.txt
+Manuscript/*.png

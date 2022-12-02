@@ -39,6 +39,11 @@ Chess;
 \addcontentsline{toc}{section}{Introduction}
 \label{sec:intro}
 
+How was the topic brought about?
+
+
+
+
 Over the past few months, the global chess community has been shaken by a very high-profile story regarding Hans Niemann, Magnus Carlsen, and “alleged cheating” in chess. This “cheating accusation” scandal started when Carlsen withdrew from the Sinquefield Cup after losing to nineteen-year-old Niemann in a stunning third round defeat. This was the first time in the then reigning five-time World Chess Champion's career where he withdrew from a major event in progress.
 
 Carlsen didn't immediately state the reason as to why he withdrew at first, though many correctly assumed that he was holding his tongue in making any sort of public accusation to avoid a potential retaliatory lawsuit for slander. It should be noted that Carlsen played Niemann again two weeks later in the Julius Baer Generation Cup, but resigned after his second move, perpetuating rumors of the scandal even further. This has become a matter of significant speculation both inside and outside the chess world given the nature of the situation and the people involved. 
@@ -57,7 +62,12 @@ The rest of the paper is organized as follows. Section 2 provides specifics abou
 \addcontentsline{toc}{section}{Data}
 \label{sec:data}
 
-The data used was provided by Lichess.com (via kaggle) \citep{zaidqureshi2022}, a free and open-source internet chess server that holds the records of many professional games. It is a comprehensive list of every professional game Hans Niemann has played, both virtually and OTB, from March of 2018 to September of 2022 and is provided in both .csv and .pkl format. Some of the relevant information it contains are what color Niemann and his opponent played and what their respective ELO scores and calculated ACL scores were along with some other unimportant details for this analysis (e.g., ACL score of Niemann's opponent, tournament name and event round, etc.). The main information of concern with regard to the entirety of the data is Niemann's ELO score and calculated ACL score of each game of each particular point in time, as this is what will be used to plot. All other games that included information where Niemann was not playing were dropped from the original dataset provided by Lichess.
+The dataset was compiled by Rafael Vicente Leite, an independent chess researcher and data scientis, immediately following the events of the scandal with the intent of conducting his own investigation of the Niemann controversy. The data itself was sourced from ChessBase, a German chess software company that maintains and sells large-scale databases containing the moves of recorded professional chess games. In addition to just holding data from prior games, however, it also provides some engine analysis of these games using Stockfish. Liete converted this raw data, that is to say the archive of games, from their initial portable game notation (PGN) format to data that was more amenable to statistical analysis.
+
+Specifically, the processed dataset is comprised of ranked games (both virtual and OTB) of the following professional chess players: Hans Niemann, Erigaisi Arjun, Gukesh D, Alireza Firouzja, Vincent Keymer, and Igors Rausis.
+% I don't know the exact reasoning for why these players were selected aside from Niemann and Carlsen, the two players who sparked the cheating controversy, and Rausis, a known cheater and perhaps "control" of his analysis.
+
+It is a comprehensive list of every professional game they have played from 2018 to 2022 and is provided in both .csv and .pkl format. Some of the relevant information it contains are what color was played, what their respective ELO scores were at the time, and calculated ACL scores were along with some other unimportant details for this analysis (e.g., ACL score of Niemann's opponent, tournament name and event round, etc.). The main information of concern with regard to the entirety of the data is Niemann's ELO score and calculated ACL score of each game of each particular point in time, as this is what will be used to plot. All other games that included information where Niemann was not playing were dropped from the original dataset provided by Lichess.
 
 \section*{Simulation/Methods}
 \addcontentsline{toc}{section}{Methods}

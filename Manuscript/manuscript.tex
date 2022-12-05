@@ -8,6 +8,7 @@
 \usepackage[colorlinks=true, citecolor=blue]{hyperref}
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage{setspace}
 
 %% metadata
 \title{An Analysis of the Use of Average Centipawn Loss to Detect Cheating in Chess}
@@ -19,6 +20,8 @@
 
 \begin{document}
 \maketitle
+
+\doublespace
 
 \begin{abstract}
 \section*{Abstract}
@@ -59,12 +62,14 @@ In practice, ACL is usually somewhere between 0 and 100, where the closer a play
 \addcontentsline{toc}{section}{Data}
 \label{sec:data}
 
-The dataset was compiled by Rafael Vicente Leite, an independent chess researcher and data scientis, immediately following the events of the scandal with the intent of conducting his own investigation of the Niemann controversy. The data itself was sourced from ChessBase, a German chess software company that maintains and sells large-scale databases containing the moves of recorded professional chess games. In addition to just holding data from prior games, however, it also provides some engine analysis of these games using Stockfish. Liete converted this raw data, that is to say the archive of games, from their initial portable game notation (PGN) format to data that was more amenable to statistical analysis.
+Who collected the data?
+The dataset was originally compiled by Rafael Leite, a production engineering graduate from the university of Sao Paulo and independent chess researcher, immediately following the events of the initial controversy with the intent of conducting his own investigation. This data itself was sourced from ChessBase, a German chess software company that maintains and sells large-scale databases containing the moves of past professional chess games. Leite converted this raw data from its original format in portable game notation (PGN) to data that was more amenable to statistical analysis. He also expanded the data to include the ACPL of each player in each game as computed by Stockfish.
 
-Specifically, the processed dataset is comprised of ranked games (both virtual and OTB) of the following professional chess players: Hans Niemann, Erigaisi Arjun, Gukesh D, Alireza Firouzja, Vincent Keymer, and Igors Rausis.
-% I don't know the exact reasoning for why these players were selected aside from Niemann and Carlsen, the two players who sparked the cheating controversy, and Rausis, a known cheater and perhaps "control" of his analysis.
+What period or range does the data cover?
+The data covers every official game Hans Niemann has played in his career up to roughly October of 2022, a grand total of over 10000 games. However, for our analysis, we are only interested in the data up to the events of the Sinquefield Cup, which took place on September 4th, 2022. Additionally, to avoid having to analyze an unnecessarily large dataset we will focus on Niemann’s games while his ranking was above 2300, that is to say the lower bound of most FIDE masters (according to XXXXX)
 
-It is a comprehensive list of every professional game they have played from 2018 to 2022 and is provided in both .csv and .pkl format. Some of the relevant information it contains are what color was played, what their respective ELO scores were at the time, and calculated ACL scores were along with some other unimportant details for this analysis (e.g., ACL score of Niemann's opponent, tournament name and event round, etc.). The main information of concern with regard to the entirety of the data is Niemann's ELO score and calculated ACL score of each game of each particular point in time, as this is what will be used to plot. All other games that included information where Niemann was not playing were dropped from the original dataset provided by Lichess.
+Why does the data help to answer the research question?
+Since we have extensive time series data of the official games Niemann played throughout his career, one can observe the relationship between his rating and ACPL over time. Thus, one can observe the correlation coefficient of these two variables assuming linearity, and test whether the hypothesized negative correlation holds true.
 
 \section*{Methods}
 \addcontentsline{toc}{section}{Methods}

@@ -32,9 +32,8 @@ Evolutions in chess computing have allowed for extensive libraries of past games
 
 \bigskip
 \noindent\sc{Kewords}:
-Centipawn math; 
-Niemann;
-Carlsen;
+Centipawn loss; 
+Hans Niemann;
 Chess;
 \end{abstract}
 
@@ -62,33 +61,89 @@ In practice, ACL is usually somewhere between 0 and 100, where the closer a play
 \addcontentsline{toc}{section}{Data}
 \label{sec:data}
 
-Who collected the data?
 The dataset was originally compiled by Rafael Leite, a production engineering graduate from the university of Sao Paulo and independent chess researcher, immediately following the events of the initial controversy with the intent of conducting his own investigation. This data itself was sourced from ChessBase, a German chess software company that maintains and sells large-scale databases containing the moves of past professional chess games. Leite converted this raw data from its original format in portable game notation (PGN) to data that was more amenable to statistical analysis. He also expanded the data to include the ACPL of each player in each game as computed by Stockfish.
 
-What period or range does the data cover?
-The data covers every official game Hans Niemann has played in his career up to roughly October of 2022, a grand total of over 10000 games. However, for our analysis, we are only interested in the data up to the events of the Sinquefield Cup, which took place on September 4th, 2022. Additionally, to avoid having to analyze an unnecessarily large dataset we will focus on Niemann’s games while his ranking was above 2300, that is to say the lower bound of most FIDE masters (according to XXXXX)
+The data covers every official game Hans Niemann has played in his career up to roughly October of 2022, a grand total of over 10000 games. However, for our analysis, we are only interested in the data up to the events of the Sinquefield Cup, which took place on September 4th, 2022. Additionally, to avoid having to analyze an unnecessarily large dataset we will focus on Niemann's games while his ranking was above 2300, that is to say the lower bound of most FIDE masters (according to findreference)
 
-Why does the data help to answer the research question?
 Since we have extensive time series data of the official games Niemann played throughout his career, one can observe the relationship between his rating and ACPL over time. Thus, one can observe the correlation coefficient of these two variables assuming linearity, and test whether the hypothesized negative correlation holds true.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/whiteELO-vs-blackELO}
+    \caption{This graph indicates that there is a correlation between Black ELO and White ELO which is due to the structure of the ELO system and tournament modes (i.e. swiss) meaning strong players will get paired against strong players}
+    \label{fig:elo_lineplot}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/ELOdistr}
+    \caption{From these histogram plots of playing ELO it can be seen that the sample for ELOs below 2300 is very low thereby explaining the high fluctuations in the above line plots.}
+    \label{fig:elo_histplot}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/masterELOdistr}
+    \caption{}
+    \label{fig:elogt23_histplot}
+\end{figure}
 
 \section*{Methods}
 \addcontentsline{toc}{section}{Methods}
-\label{sec:sim}
+\label{sec:meth}
 
-% refactor dataset before adding back methods
+As discussed in the Data section, the original dataset will be filtered so that only values where Hans Niemann's ELO score was greater than or equal to 2300 (i.e., when he qualified as a FIDE Master) will remain. This has the effect of weeding out games where Niemann was playing at the junior/amateur level and/or could not qualify for certain tournaments. The reason for this was not just to reduce the size and thereby time required for analysis, but also to make sure the data lies strictly within Niemann's professional career. This yields a distribution of ELO scores that are more normal than previous.
+
+-	Place plot of new histogram here
+-	To better identify local regions of higher incidence, the number of bins and bin widths have been computed using the Freedman-Draconis rule.
+
+Modeling the relationship between ELO score and ACPL will be done by collapsing over the observations in each discrete bin, calculated previously, to plot an estimate of central tendency accompanied by a confidence interval. Assuming linearity, one can theoretically establish a correlation between these two variables and observe whether there was a trend of Niemann playing far better than expected for his then ranking.
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/whiteACPL}
+    \caption{}
+    \label{fig:white_acpl}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/blackACPL}
+    \caption{}
+    \label{fig:black_acpl}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/elodiff-higher}
+    \caption{}
+    \label{fig:elodiff-higher}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/elodiff-lower}
+    \caption{}
+    \label{fig:elodiff-lower}
+\end{figure}
 
 \section*{Application}
 \addcontentsline{toc}{section}{Application}
 \label{sec:app}
 
-% removed faulty figures
+To better identify local regions of higher incidence, the number of bins and bin widths have been computed using the Freedman-Draconis rule.
+Collapsing over the observations in each discrete bin to plot an estimate of central tendency along with a confidence interval
+After plotting the estimated central tendency of ELO score against ACPL, one can observe that the result follows expectations. That is to say, there appears to be a negative correlation between player ranking and ACPL. As discussed in the introduction section at length, it is expected that as the rank of a player increases, they tend to lose less average centipawns, in effect playing a “stronger” game according to an engine. Calculating the statistics of linearity between ELO and ACPL yields a Pearson correlation coefficient of about -0.312 for Black and -0.286 for White. These r values need to be calculated separately for each color since their respective ACPL's are closely related within each game, hence they are not independent. Both values reflect a weak to moderate linear relationship of ELO and ACPL. It is possible that a reason to explain why these relationships are not more linear is that when a higher ELO white player get paired against a higher ELO Black player there is greater difficulty for each to find the “strongest” moves available, which may affect their resulting ACPL's. 
+To observe this, one can simply plot the distribution of the ELO difference and ACPL of the higher and lower rated players.
+-	Place plot and observations here
+-	one can observe that in the case of the lower rated player the ELO difference matters much more than for the higher ELO player, who seems to have more or less the same accuracy whether playing against a player with similar ELO or a weaker player.
+But the main focus here lies on whether Niemann's performance indicated suspicious behavior which could, possibly, be instances where he had cheated. When Niemann was playing White, the central tendency of his ACPL never appears to move outside the confidence interval of the binned observations in a way that would suggest his playing far exceeded his ranking. On the contrary, there seem to be times in which his ACPL was higher than expected such that he was perhaps playing worse than how he “should have”. Only when he played Black was there a single instance of binned observations where his ACPL was under the lower bound of that bin's confidence interval. Even so, as one can see in the distribution of ELO differences and ACPL of higher and lower rated players, this may not necessarily be due to foul play but instead by simply being paired against a stronger/weaker opponent.
 
 \section*{Discussion}
 \addcontentsline{toc}{section}{Discussion}
 \label{sec:disc}
 
-% summarize contributions of research and future directions
-The results of this research largely confirm the claims included in Chess.com's report on Niemann however, although the data does indicate suspicious activity, this is not a "cut and dry" case of cheating, so to speak. Observing a single method to detect cheating as we have through average centipawn loss is not enough to confirm for sure that Hans Niemann cheated, both virtually and OTB, more than he claimed but this was never truely the objective of this research. The real question posed here was whether historical records of average centipawn loss compared to his ELO ranking could be treated as a "smoking gun" or surefire way to prove cheating alone; which it does not. Note: Relevant figures not available, fix this later. 
+% rewrite findings and improvments
 
 \bibliographystyle{chicago}
 \bibliography{citations}

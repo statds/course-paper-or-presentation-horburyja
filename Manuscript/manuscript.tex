@@ -52,6 +52,7 @@ The game between Carlsen and Niemann was played “over the board” (OTB) in co
 But, cheating OTB is not as simple. Players are commonly required to pass through a metal detector and are not permitted to bring phones or any other communication devices with them, making it exceedingly difficult for Niemann to have cheated this way. The specific allegations as to how Niemann could have cheated OTB were and currently are still unknown. However, since none were found prior, any possibility of this has already been eliminated.
 
 One may think the matter would be closed at that, but not quite. Maybe we can't divine anything from a single game, but if a trend could somehow be established then, at the very least Carlsen's suspicions could be validated. That is to say, if the investigation were to propagate into Niemann's history, where statistical analysis would be possible given the amount of data, one might be able to identify suspicious activity. The data is there and Carlsen still holds the public trust, all that needs to be worked out is the how.
+
 Chess.com, which is used by millions of players, has released an expose on their cheat detection methods, specifically with regard to Hans Niemann. The methods used include (1) comparing moves made to engine-recommended moves, (2) comparing player past performances to their historical strength, (3) comparing player's performance to comparable peers, (4) looking at behavioral factors, and (5) reviewing the time usage for finding “easy” vs “difficult” moves.
 
 Item 2 requires an assessment of move quality which is usually done in centipawns. The centipawn is a unit of measure used in chess as a representation of advantage. One centipawn is equal to one hundredth of a pawn and, although its value plays no formal role in the game, they are used by chess engines and players alike as a means to evaluate the positions of a chess board via centipawn loss. Centipawn loss (CL) is a calculation and numerical score given by a chess engine  (Stockfish, Houdini, Koodo, etc.) as the difference, in centipawns between the move an individual makes and the “strongest” move available at the time as computed by the engine.
@@ -63,7 +64,7 @@ In practice, ACL is usually somewhere between 0 and 100, where the closer a play
 
 The dataset was originally compiled by Rafael Leite, a production engineering graduate from the university of Sao Paulo and independent chess researcher, immediately following the events of the initial controversy with the intent of conducting his own investigation. This data itself was sourced from ChessBase, a German chess software company that maintains and sells large-scale databases containing the moves of past professional chess games. Leite converted this raw data from its original format in portable game notation (PGN) to data that was more amenable to statistical analysis. He also expanded the data to include the ACPL of each player in each game as computed by Stockfish.
 
-\begin{figure}
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=\textwidth]{figures/whiteELO-vs-blackELO}
     \caption{This graph indicates that there is a correlation between Black ELO and White ELO which is due to the structure of the ELO system and tournament modes (i.e. swiss) meaning strong players will get paired against strong players}
@@ -72,7 +73,7 @@ The dataset was originally compiled by Rafael Leite, a production engineering gr
 
 The data covers every official game Hans Niemann has played in his career up to roughly October of 2022, a grand total of over 10000 games. However, for our analysis, we are only interested in the data up to the events of the Sinquefield Cup, which took place on September 4th, 2022. Additionally, to avoid having to analyze an unnecessarily large dataset we will focus on Niemann's games while his ranking was above 2300, that is to say the lower bound of most FIDE masters (according to findreference)
 
-\begin{figure}
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=\textwidth]{figures/ELOdistr}
     \caption{From these histogram plots of playing ELO it can be seen that the sample for ELOs below 2300 is very low thereby explaining the high fluctuations in the above line plot.}
@@ -87,7 +88,7 @@ Since we have extensive time series data of the official games Niemann played th
 
 As discussed in the Data section, the original dataset will be filtered so that only values where Hans Niemann's ELO score was greater than or equal to 2300 (i.e., when he qualified as a FIDE Master) will remain. This has the effect of weeding out games where Niemann was playing at the junior/amateur level and/or could not qualify for certain tournaments. The reason for this was not just to reduce the size and thereby time required for analysis, but also to make sure the data lies strictly within Niemann's professional career. This yields a distribution of ELO scores that are more normal than previous.
 
-\begin{figure}
+\begin{figure}[!htb]
     \centering
     \includegraphics[width=\textwidth]{figures/masterELOdistr}
     \caption{The filtered data uses a more normal dirstribution of ELO scores.}
@@ -101,7 +102,7 @@ To better identify local regions of higher incidence, the number of bins and bin
     BIN WIDTH = 2 \frac{iqr}{n^{1/3}},
 \end{equation}
 
-where iqr is the interquartile range of the data and n is observations.
+where iqr is the interquartile range of the data and n is the number of observations.
 
 Modeling the relationship between ELO score and ACPL will be done by collapsing over the observations in each discrete bin, calculated previously, to plot an estimate of central tendency accompanied by a confidence interval. Assuming linearity, one can theoretically establish a correlation between these two variables and observe whether there was a trend of Niemann playing far better than expected for his then ranking.
 
@@ -109,36 +110,44 @@ Modeling the relationship between ELO score and ACPL will be done by collapsing 
 \addcontentsline{toc}{section}{Application}
 \label{sec:app}
 
-After plotting the estimated central tendency of ELO score against ACPL, one can observe that the result follows expectations. That is to say, there appears to be a negative correlation between player ranking and ACPL. 
+After plotting the estimated central tendency of ELO score against ACPL, one can observe that the result follows expectations. That is to say, there appears to be a negative correlation between player ranking and ACPL.
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics{figures/whiteACPL}
-    \caption{Relationship of Niemann's ELO score and ACPL while playing as White.}
-    \label{fig:white_acpl}
-\end{figure}
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics{figures/blackACPL}
-    \caption{Relationship of Niemann's ELO score and ACPL while playing as Black.}
-    \label{fig:black_acpl}
+    \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{figures/whiteACPL}
+      \caption{Relationship of Niemann's ELO score and ACPL while playing as White.}
+      \label{fig:sub1}
+    \end{subfigure}
+    \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{figures/blackACPL}
+      \caption{Relationship of Niemann's ELO score and ACPL while playing as Black.}
+      \label{fig:sub2}
+    \end{subfigure}
+    \caption{}
+    \label{fig:test}
 \end{figure}
 
 As discussed in the introduction section at length, it is expected that as the rank of a player increases, they tend to lose less average centipawns, in effect playing a “stronger” game according to an engine. Calculating the statistics of linearity between ELO and ACPL yields a Pearson correlation coefficient of about -0.312 for Black and -0.286 for White. These r values need to be calculated separately for each color since their respective ACPL's are closely related within each game, hence they are not independent. Both values reflect a weak to moderate linear relationship of ELO and ACPL. It is possible that a reason to explain why these relationships are not more linear is that when a higher ELO white player get paired against a higher ELO Black player there is greater difficulty for each to find the “strongest” moves available, which may affect their resulting ACPL's. To observe this, one can simply plot the distribution of the ELO difference and ACPL of the higher and lower rated players.
 
-\begin{figure}[!htb]
+\begin{figure}
     \centering
-    \includegraphics{figures/elodiff-higher}
-    \caption{Distribution of ELO difference and ACPL of the higher rated players in the dataset.}
-    \label{fig:elodiff-higher}
-\end{figure}
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics{figures/elodiff-lower}
-    \caption{Distribution of ELO difference and ACPL of the lower rated players in the dataset.}
-    \label{fig:elodiff-lower}
+    \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{figures/elodiff-higher}
+      \caption{Distribution of ELO difference and ACPL of the higher rated players in the dataset.}
+      \label{fig:higher}
+    \end{subfigure}
+    \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{figures/elodiff-lower}
+      \caption{Distribution of ELO difference and ACPL of the lower rated players in the dataset.}
+      \label{fig:lower}
+    \end{subfigure}
+    \caption{}
+    \label{fig:elodiff}
 \end{figure}
 
 One can observe that in the case of the lower rated player the ELO difference matters much more than for the higher ELO player, who seems to have more or less the same accuracy whether playing against a player with similar ELO or a weaker player.

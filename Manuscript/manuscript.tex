@@ -30,7 +30,11 @@
 \addcontentsline{toc}{section}{Abstract}
 \label{sec:abs}
 
-Evolutions in chess computing have allowed for extensive libraries of past games to be analyzed again utlizing centipawn math. A recent scandal involving the alleged cheating of Chess Grandmaster Hans Niemann in the sphere of professional chess has launched a conversation about how cheaters can be detected statistically to the forefront of Academic Data Science. This paper will explore how one might detect cheating using average centipawn loss and whether these methods are reliable enough to become standard in the chess proctors handbook.
+Evolutions in chess computing have allowed for extensive libraries of past games to be analyzed again utlizing 
+centipawn math. A recent scandal involving the alleged cheating of Chess Grandmaster Hans Niemann in the 
+sphere of professional chess has launched a conversation about how cheaters can be detected statistically 
+to the forefront of Academic Data Science. This paper will explore how one might detect cheating using average
+ centipawn loss and whether these methods are reliable enough to become standard in the chess proctors handbook.
 
 \bigskip
 \noindent\sc{Kewords}:
@@ -43,55 +47,134 @@ Chess;
 \addcontentsline{toc}{section}{Introduction}
 \label{sec:intro}
 
-Over the past few months, the global chess community has been shaken by a very high-profile story regarding Hans Niemann, Magnus Carlsen,  and “alleged cheating” in the world of professional chess. The scandal started when Carlsen, the currently reigning five-time World Chess Champion, unexpectedly withdrew from the Sinquefield Cup after a stunning upset by the then nineteen-year-old Niemann in the tournament's third round. This was the first time in Carlsen's career where he withdrew from a major event in progress, and this fact alone was enough to cause a stir among observers \citep{wsj2022}.
+Over the past few months, the global chess community has been shaken by a very high-profile story regarding 
+Hans Niemann, Magnus Carlsen,  and “alleged cheating” in the world of professional chess. The scandal started
+ when Carlsen, the currently reigning five-time World Chess Champion, unexpectedly withdrew from the 
+ Sinquefield Cup after a stunning upset by the then nineteen-year-old Niemann in the tournament's third 
+ round. This was the first time in Carlsen's career where he withdrew from a major event in progress, and 
+ this fact alone was enough to cause a stir among observers \citep{wsj2022}.
 
-Carlsen also didn't immediately state the reason as to why he withdrew at first, though many correctly assumed he was holding his tongue in making any sort of public accusation of cheating to avoid a retaliatory lawsuit by Niemann while he didn't have proof. But it was too late, the public was already running wild with the story and amateur and professional entities alike were launching their own investigations on the matter, looking for any indication of foul play.
+Carlsen also didn't immediately state the reason as to why he withdrew at first, though many correctly 
+assumed he was holding his tongue in making any sort of public accusation of cheating to avoid a retaliatory 
+lawsuit by Niemann while he didn't have proof. But it was too late, the public was already running wild with 
+the story and amateur and professional entities alike were launching their own investigations on the matter, 
+looking for any indication of foul play.
 
-Although the question of whether Hans Niemann “cheated” originally stemmed from just the one game, it would be nearly impossible to prove foul play by simply analyzing moves without any form of “smoking gun” in terms of evidence, such as the discovery of a concealed communication device or computer on his person. This is primarily due to the modality in which the game was played.
+Although the question of whether Hans Niemann “cheated” originally stemmed from just the one game, it would be
+ nearly impossible to prove foul play by simply analyzing moves without any form of “smoking gun” in terms of 
+ evidence, such as the discovery of a concealed communication device or computer on his person. This is 
+ primarily due to the modality in which the game was played.
 
-The game between Carlsen and Niemann was played “over the board” (OTB) in contrast to “virtual chess” which is hosted online. As one might guess cheating in online chess is quite easy. One simply has to rely on outside input, commonly through a chess engine (such as Stockfish, Houdini, or Koodo) and execute the moves from their game into the engine as they played, following up with whichever move that was suggested to play next. This has become an increasing problem ever since the superiority of top chess engines has been acknowledged with IBM's Deep Blue defeating the former World Chess Champion, Garry Kasparov, in 1997.
+The game between Carlsen and Niemann was played “over the board” (OTB) in contrast to “virtual chess” which
+ is hosted online. As one might guess cheating in online chess is quite easy. One simply has to rely on 
+ outside input, commonly through a chess engine (such as Stockfish, Houdini, or Koodo) and execute the moves 
+ from their game into the engine as they played, following up with whichever move that was suggested to play
+  next. This has become an increasing problem ever since the superiority of top chess engines has been 
+  acknowledged with IBM's Deep Blue defeating the former World Chess Champion, Garry Kasparov, in 1997.
 
-But cheating OTB is not as simple. Players are commonly required to pass through a metal detector and are not permitted to bring phones or any other communication devices with them, making it exceedingly difficult for Niemann to have cheated this way but still not impossible. The specific allegations as to how Niemann could have cheated OTB were and currently still are unknown. However, since no contraband was found prior to the event, any hope of using a “smoking gun” as evidence in the case is futile.
+But cheating OTB is not as simple. Players are commonly required to pass through a metal detector and are 
+not permitted to bring phones or any other communication devices with them, making it exceedingly difficult
+ for Niemann to have cheated this way but still not impossible. The specific allegations as to how Niemann
+  could have cheated OTB were and currently still are unknown. However, since no contraband was found prior 
+  to the event, any hope of using a “smoking gun” as evidence in the case is futile.
 
-One may think the matter would be closed at that, but not quite. These days vast swaths of open-access data and high performance computers are increasingly accessible. Maybe we can't divine anything from a single game, but if a trend could somehow be established over several hundred or even thousand games then, at the very least, Carlsen's suspicions could be validated. That is to say, if the investigation were to propagate into Niemann's history, where statistical analysis would be possible given the amount of data, one might be able to identify suspicious activity if it were done consistently. The data is there and Carlsen still holds the public trust, all that needs to be worked out is the how.
+One may think the matter would be closed at that, but not quite. These days vast swaths of open-access data
+ and high performance computers are increasingly accessible. Maybe we can't divine anything from a single 
+ game, but if a trend could somehow be established over several hundred or even thousand games then, at the
+  very least, Carlsen's suspicions could be validated. That is to say, if the investigation were to propagate 
+  into Niemann's history, where statistical analysis would be possible given the amount of data, one might be 
+  able to identify suspicious activity if it were done consistently. The data is there and Carlsen still holds
+   the public trust, all that needs to be worked out is the how.
 
-Chess.com \citep{chess2022cheating}, which is used by millions of players, has released an expose on their cheat detection methods, specifically with regard to Hans Niemann. The methods used include (1) comparing moves made to engine-recommended moves, (2) comparing player past performances to their historical strength, (3) comparing player's performance to comparable peers, (4) looking at behavioral factors, and (5) reviewing the time usage for finding “easy” vs “difficult” moves.
+Chess.com \citep{chess2022cheating}, which is used by millions of players, has released an expose on their 
+cheat detection methods, specifically with regard to Hans Niemann. The methods used include (1) comparing 
+moves made to engine-recommended moves, (2) comparing player past performances to their historical strength, 
+(3) comparing player's performance to comparable peers, (4) looking at behavioral factors, and (5) reviewing 
+the time usage for finding “easy” vs “difficult” moves.
 
-Of these cheat detection methods, the particular focus of this paper will be in investigating item 2. Item 2 requires an assessment of move quality which is usually done in centipawns. The centipawn is a unit of measure used in chess as a representation of advantage. One centipawn is equal to one hundredth of a pawn and, although its value plays no formal role in the game, they are used by chess engines and players alike as a means to evaluate the positions of a chess board via centipawn loss. Centipawn loss (CPL) is a calculation and numerical score given by a chess engine as the difference, in centipawns between the move an individual makes and the “strongest” move available at the time as computed by the engine. Thus, average centipawn loss (ACPL) is simply the average of all the centipawn losses per move over a whole game and is, roughly speaking, an average assessment of move quality as computed by an engine. In practice, ACL is usually somewhere between 0 and 100, where the closer a player is to 0 the better their moves have been \citep{avva2022guess}. Although the details of how centipawn loss is calculated will not be explicitly covered in this paper, the basic metric of average centipawn loss, using the terminology of game theory in chess, can be introduced thusly.
+Of these cheat detection methods, the particular focus of this paper will be in investigating item 2. Item 2
+ requires an assessment of move quality which is usually done in centipawns. The centipawn is a unit of measure
+  used in chess as a representation of advantage. One centipawn is equal to one hundredth of a pawn and, 
+  although its value plays no formal role in the game, they are used by chess engines and players alike as a
+   means to evaluate the positions of a chess board via centipawn loss. Centipawn loss (CPL) is a calculation 
+   and numerical score given by a chess engine as the difference, in centipawns between the move an individual 
+   makes and the “strongest” move available at the time as computed by the engine. Thus, average centipawn loss 
+   (ACPL) is simply the average of all the centipawn losses per move over a whole game and is, roughly
+    speaking, an average assessment of move quality as computed by an engine. In practice, ACL is usually 
+    somewhere between 0 and 100, where the closer a player is to 0 the better their moves have been 
+    \citep{avva2022guess}. Although the details of how centipawn loss is calculated will not be explicitly
+     covered in this paper, the basic metric of average centipawn loss, using the terminology of game theory
+      in chess, can be introduced thusly.
 
-Let \begin{math}v_{i}(a_{i}^*(x_{j}))\end{math} be a chess engine's evaluation of the best move for player \begin{math}i\end{math} at position \begin{math}x_{j}\end{math} in centipawns and \begin{math}v_{i}(a_{i}^j(x_{j}))\end{math} be the chess engine's evalution of \begin{math}i's\end{math} actual move in centipawns. Then the \begin{math}average centipawn loss\end{math} of move \begin{math}a_{i}^j(x_{j})\end{math} is defined as \begin{math}v_{i}(a_{i}^*(x_{j})) - v_{i}(a_{i}^j(x_{j}))/n\end{math} where \begin{math}n\end{math} is the total number of moves made by \begin{math}i\end{math} \citep{anbarciai}.
+Let \begin{math}v_{i}(a_{i}^*(x_{j}))\end{math} be a chess engine's evaluation of the best move for player 
+\begin{math}i\end{math} at position \begin{math}x_{j}\end{math} in centipawns and 
+\begin{math}v_{i}(a_{i}^j(x_{j}))\end{math} be the chess engine's evalution of \begin{math}i's\end{math} 
+actual move in centipawns. Then the \begin{math}average centipawn loss\end{math} of move 
+\begin{math}a_{i}^j(x_{j})\end{math} is defined as \begin{math}v_{i}(a_{i}^*(x_{j})) - v_{i}(a_{i}^j(x_{j}))/n\end{math} 
+where \begin{math}n\end{math} is the total number of moves made by \begin{math}i\end{math} \citep{anbarciai}.
 
-Since the specific details of the methods that Chess.com uses in assessing move quality have not been revealed an analysis of how a player's ACPL changes with respect to their ranking, quantified by ELO score, could feasibly serve as the best way to replicate how they would compare a players past performance to their historical strengths. With respect to the Niemann controversy, this hypothesized method has been used by many \citet{medium2022} as an attempt to prove or disprove whether he had “cheated” in the past. This paper will attempt to investigate whether the use of ACPL as a means to verify the integrity of chess players in the age of modern computing is an appropriate method or just a commonly peddled misconception using data from Hans Niemann's past games.
+Since the specific details of the methods that Chess.com uses in assessing move quality have not 
+been revealed an analysis of how a player's ACPL changes with respect to their ranking, quantified 
+by ELO score, could feasibly serve as the best way to replicate how they would compare a players 
+past performance to their historical strengths. With respect to the Niemann controversy, this hypothesized
+ method has been used by many \citet{medium2022} as an attempt to prove or disprove whether he had “cheated” 
+ in the past. This paper will attempt to investigate whether the use of ACPL as a means to verify the 
+ integrity of chess players in the age of modern computing is an appropriate method or just a commonly 
+ peddled misconception using data from Hans Niemann's past games.
 
-The rest of the paper is organized as follows. Section~\ref{sec:data} explores the dataset of Hans Niemann's past games that were used for the study. Section~\ref{sec:meth} goes over the methods that were used to answer the research question. Section~\ref{sec:app} explores the applications of the methods used to investigate the data. Finally, Section~\ref{sec:disc} concludes with a discussion and Section~\ref{sec:apx} provides and appendix of technical details.
+The rest of the paper is organized as follows. Section~\ref{sec:data} explores the dataset of Hans
+ Niemann's past games that were used for the study. Section~\ref{sec:meth} goes over the methods that 
+ were used to answer the research question. Section~\ref{sec:app} explores the applications of the methods 
+ used to investigate the data. Finally, Section~\ref{sec:disc} concludes with a discussion and
+  Section~\ref{sec:apx} provides and appendix of technical details.
 
 \section{Data}
 \label{sec:data}
 
-The dataset was originally compiled by Rafael Leite \citep{leite2022}, a production engineering graduate from the university of Sao Paulo and independent chess researcher, immediately following the events of the initial controversy with the intent of conducting his own investigation. This data \citep{chessbase} itself was sourced from ChessBase, a German chess software company that maintains and sells large-scale databases containing the moves of past professional chess games. Leite converted this raw data from its original format in portable game notation (PGN) to data that was more amenable to statistical analysis. He also expanded the data to include the ACPL of each player in each game as computed by the chess engine, Stockfish.
+The dataset was originally compiled by Rafael Leite \citep{leite2022}, a production engineering graduate from 
+the university of Sao Paulo and independent chess researcher, immediately following the events of the initial 
+controversy with the intent of conducting his own investigation. This data \citep{chessbase} itself was
+ sourced from ChessBase, a German chess software company that maintains and sells large-scale databases 
+ containing the moves of past professional chess games. Leite converted this raw data from its original
+  format in portable game notation (PGN) to data that was more amenable to statistical analysis. He also
+   expanded the data to include the ACPL of each player in each game as computed by the chess engine, Stockfish.
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\textwidth]{figures/whiteELO-vs-blackELO}
-    \caption{This graph indicates that there is a correlation between Black ELO and White ELO which is due to the structure of the ELO system, where strong players will get paired against strong players}
+    \caption{This graph indicates that there is a correlation between Black ELO and White ELO which is due to 
+    the structure of the ELO system, where strong players will get paired against strong players}
     \label{fig:elo_lineplot}
 \end{figure}
 
-The data covers every official game Hans Niemann has played in his career up to roughly October of 2022, a grand total of over 10000 games. However, for our analysis, we are only interested in the data up to the events of the Sinquefield Cup, which took place on September 4th, 2022. Additionally, to avoid having to analyze an unnecessarily large dataset we will focus on Niemann's games while his ranking was above 2300, that is to say the lower bound of most FIDE masters.
+The data covers every official game Hans Niemann has played in his career up to roughly October of 2022, a 
+grand total of over 10000 games. However, for our analysis, we are only interested in the data up to the 
+events of the Sinquefield Cup, which took place on September 4th, 2022. Additionally, to avoid having to 
+analyze an unnecessarily large dataset we will focus on Niemann's games while his ranking was above 2300, 
+that is to say the lower bound of most FIDE masters.
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\textwidth]{figures/ELOdistr}
-    \caption{From this histogram it can be observed that the sample for ELOs below 2300 is very low thereby explaining the high fluctuations in the above line plot.}
+    \caption{From this histogram it can be observed that the sample for ELOs below 2300 is very low thereby 
+    explaining the high fluctuations in the above line plot.}
     \label{fig:elo_histplot}
 \end{figure}
 
-Since we have extensive time series data of the official games Niemann played throughout his career, one can observe the relationship between his rating and ACPL over time. Thus, one can observe the correlation coefficient of these two variables assuming linearity, and test whether a hypothesized negative correlation holds true within a calculated confidence interval.
+Since we have extensive time series data of the official games Niemann played throughout his career, one can
+ observe the relationship between his rating and ACPL over time. Thus, one can observe the correlation 
+ coefficient of these two variables assuming linearity, and test whether a hypothesized negative correlation
+  holds true within a calculated confidence interval.
 
 \section{Methods}
 \label{sec:meth}
 
-As discussed in the Data section, the original dataset will be filtered so that only values where Hans Niemann's ELO score was greater than or equal to 2300 (i.e., when he qualified as a FIDE Master) will remain. This has the effect of weeding out games where Niemann was playing at the junior/amateur level and/or could not qualify for certain tournaments. The reason for this was not just to reduce the size and thereby time required for analysis, but also to make sure the data lies strictly within Niemann's professional career. This yields a distribution of ELO scores that are more normal than previous.
+As discussed in the Data section, the original dataset will be filtered so that only values where Hans 
+Niemann's ELO score was greater than or equal to 2300 (i.e., when he qualified as a FIDE Master) will remain. 
+This has the effect of weeding out games where Niemann was playing at the junior/amateur level and/or could 
+not qualify for certain tournaments. The reason for this was not just to reduce the size and thereby time 
+required for analysis, but also to make sure the data lies strictly within Niemann's professional career. 
+This yields a distribution of ELO scores that are more normal than previous.
 
 \begin{figure}[!htb]
     \centering
@@ -100,16 +183,22 @@ As discussed in the Data section, the original dataset will be filtered so that 
     \label{fig:elogt23_histplot}
 \end{figure}
 
-To better identify local regions of higher incidence, the number of bins and bin widths have been computed using the Freedman-Diaconis rule~\ref{eq:freedman-diaconis}.
+To better identify local regions of higher incidence, the number of bins and bin widths have been computed
+ using the Freedman-Diaconis rule~\ref{eq:freedman-diaconis}.
 
 where iqr is the interquartile range of the data and n is the number of observations.
 
-Modeling the relationship between ELO score and ACPL will be done by collapsing over the observations in each discrete bin, calculated previously, to plot an estimate of central tendency accompanied by a confidence interval. Assuming linearity, one can theoretically establish a correlation between these two variables and observe whether there was a trend of Niemann playing far better than expected for his then ranking.
+Modeling the relationship between ELO score and ACPL will be done by collapsing over the observations in 
+each discrete bin, calculated previously, to plot an estimate of central tendency accompanied by a confidence
+ interval. Assuming linearity, one can theoretically establish a correlation between these two variables and
+  observe whether there was a trend of Niemann playing far better than expected for his then ranking.
 
 \section{Application}
 \label{sec:app}
 
-After plotting the estimated central tendency of ELO score against ACPL, one can observe that the result follows expectations. That is to say, there appears to be a negative correlation between player ranking and ACPL.
+After plotting the estimated central tendency of ELO score against ACPL, one can observe that the result 
+follows expectations. That is to say, there appears to be a negative correlation between player ranking and 
+ACPL.
 
 \begin{figure}[!htb]
     \centering
@@ -129,7 +218,16 @@ After plotting the estimated central tendency of ELO score against ACPL, one can
     \label{fig:test}
 \end{figure}
 
-As discussed in the introduction section at length, it is expected that as the rank of a player increases, they tend to lose less average centipawns, in effect playing a “stronger” game according to an engine. Calculating the statistics of linearity between ELO and ACPL yields a Pearson correlation coefficient~\ref{eq:pearson} of about -0.312 for Black and -0.286 for White. These \begin{math}r\end{math} values need to be calculated separately for each color since their respective ACPL's are closely related within each game, hence they are not independent. Both values reflect a weak to moderate linear relationship of ELO and ACPL. It is possible that a reason to explain why these relationships are not more linear is that when a higher ELO white player get paired against a higher ELO Black player there is greater difficulty for each to find the “strongest” moves available, which may affect their resulting ACPL's. To observe this, one can simply plot the distribution of the ELO difference and ACPL of the higher and lower rated players.
+As discussed in the introduction section at length, it is expected that as the rank of a player increases, 
+they tend to lose less average centipawns, in effect playing a “stronger” game according to an engine. 
+Calculating the statistics of linearity between ELO and ACPL yields a Pearson correlation 
+coefficient~\ref{eq:pearson} of about -0.312 for Black and -0.286 for White. These \begin{math}r\end{math}
+ values need to be calculated separately for each color since their respective ACPL's are closely related 
+ within each game, hence they are not independent. Both values reflect a weak to moderate linear relationship 
+ of ELO and ACPL. It is possible that a reason to explain why these relationships are not more linear is that 
+ when a higher ELO white player get paired against a higher ELO Black player there is greater difficulty for 
+ each to find the “strongest” moves available, which may affect their resulting ACPL's. To observe this, one 
+ can simply plot the distribution of the ELO difference and ACPL of the higher and lower rated players.
 
 \begin{figure}
     \centering
@@ -149,14 +247,49 @@ As discussed in the introduction section at length, it is expected that as the r
     \label{fig:elodiff}
 \end{figure}
 
-One can observe that in the case of the lower rated player the ELO difference matters much more than for the higher ELO player, who seems to have more or less the same accuracy whether playing against a player with similar ELO or a weaker player.
+One can observe that in the case of the lower rated player the ELO difference matters much more than for the
+ higher ELO player, who seems to have more or less the same accuracy whether playing against a player with 
+ similar ELO or a weaker player.
 
-But the main focus here lies on whether Niemann's performance indicated suspicious behavior which could, possibly, be instances where he had cheated. When Niemann was playing White, the central tendency of his ACPL never appears to move outside the confidence interval of the binned observations in a way that would suggest his playing far exceeded his ranking. On the contrary, there seem to be times in which his ACPL was higher than expected such that he was perhaps playing worse than how he “should have”. Only when he played Black was there a single instance of binned observations where his ACPL was under the lower bound of that bin's confidence interval. Even so, as one can see in the distribution of ELO differences and ACPL of higher and lower rated players, this may not necessarily be due to foul play but instead by simply being paired against a stronger/weaker opponent.
+But the main focus here lies on whether Niemann's performance indicated suspicious behavior which could, 
+possibly, be instances where he had cheated. When Niemann was playing White, the central tendency of his 
+ACPL never appears to move outside the confidence interval of the binned observations in a way that would 
+suggest his playing far exceeded his ranking. On the contrary, there seem to be times in which his ACPL was 
+higher than expected such that he was perhaps playing worse than how he “should have”. Only when he played 
+Black was there a single instance of binned observations where his ACPL was under the lower bound of that
+ bin's confidence interval. Even so, as one can see in the distribution of ELO differences and ACPL of higher 
+ and lower rated players, this may not necessarily be due to foul play but instead by simply being paired 
+ against a stronger/weaker opponent.
 
 \section{Discussion}
 \label{sec:disc}
 
-The purpose of this research was meant to analyze how one could detect foul play in chess by observing the correlation between a player's rating and ACPL over a period of time; but rather than painting a clearer picture of what many consider to be a common method to identify cheaters, more questions have been raised than answers. In the case of Hans Niemann, evidently the data does not even suggest a strong linear relationship between his ELO score and ACPL over time. Upon further research, it appears that the claims made by many regarding the existence of this relationship is somewhat contested. Regrettably, the only real contribution this paper provides is that, in the case of Hans Niemann's professional history, it is inconclusive whether the methodologies used here can even be used to accurately indicate “cheating”. The fact that the data used in this paper only reflects the history of a single professional player may be a significant limitation in investigating the true relationship of these variables. Shifting the focus from Niemann and performing the same analysis on a dataset consisting of players that were randomly selected from another database may provide more accurate results of what one could expect this relationship could be for the average player. Another definite limitation of this study came about as a result during the process of binning observations before plotting the central tendency of ELO score against ACPL. It is possible that during this process, the visibility of certain observations that could have been suspicious would undoubtedly be lessened when binned with others that were less so. This would have effectively drowned out any times where Niemann could possibly have “cheated” inconsistently. Which leads to undoubtedly the biggest limitation of this study, possible inability to detect certain styles of cheating. Although it might be possible to detect a consistent trend where an individual may be playing far better than expected for their ranking by just observing the relationship between ELO score and ACPL, this may not be so for an inconsistent or “smart” cheater \citep{chessbot}. A “smart” cheater might prevent themselves from relying on moves suggested by an engine too regularly and may, instead, elect to make only certain moves that were suggested. This would only give them a slight advantage, but it would be nearly impossible to detect using a simple correlation. The possible future directions of this study at the moment would be to investigate this same relationship between ELO score and ACPL for other professional chess players to observe if the same or different effects could be observed.
+The purpose of this research was meant to analyze how one could detect foul play in chess by observing the 
+correlation between a player's rating and ACPL over a period of time; but rather than painting a clearer 
+picture of what many consider to be a common method to identify cheaters, more questions have been raised than
+ answers. In the case of Hans Niemann, evidently the data does not even suggest a strong linear relationship
+  between his ELO score and ACPL over time. Upon further research, it appears that the claims made by many
+   regarding the existence of this relationship is somewhat contested. Regrettably, the only real contribution 
+   this paper provides is that, in the case of Hans Niemann's professional history, it is inconclusive whether 
+   the methodologies used here can even be used to accurately indicate “cheating”. The fact that the data used 
+   in this paper only reflects the history of a single professional player may be a significant limitation in 
+   investigating the true relationship of these variables. Shifting the focus from Niemann and performing the 
+   same analysis on a dataset consisting of players that were randomly selected from another database may 
+   provide more accurate results of what one could expect this relationship could be for the average player. 
+   Another definite limitation of this study came about as a result during the process of binning observations 
+   before plotting the central tendency of ELO score against ACPL. It is possible that during this process, 
+   the visibility of certain observations that could have been suspicious would undoubtedly be lessened when
+    binned with others that were less so. This would have effectively drowned out any times where Niemann 
+    could possibly have “cheated” inconsistently. Which leads to undoubtedly the biggest limitation of this 
+    study, possible inability to detect certain styles of cheating. Although it might be possible to detect a 
+    consistent trend where an individual may be playing far better than expected for their ranking by just 
+    observing the relationship between ELO score and ACPL, this may not be so for an inconsistent or “smart” 
+    cheater \citep{chessbot}. A “smart” cheater might prevent themselves from relying on moves suggested by 
+    an engine too regularly and may, instead, elect to make only certain moves that were suggested. This would 
+    only give them a slight advantage, but it would be nearly impossible to detect using a simple correlation.
+     The possible future directions of this study at the moment would be to investigate this same relationship
+      between ELO score and ACPL for other professional chess players to observe if the same or different 
+      effects could be observed.
 
 \section{Appendix}
 \label{sec:apx}
@@ -178,7 +311,9 @@ Pearson's equation defined as follows:
   \sqrt{\sum_{i=1}^{n}(x_i-\bar{x})^2}\sqrt{\sum_{i=1}^{n}(y_i-\bar{y})^2}}
 \end{equation}
 
-where \begin{math}x_{i}\end{math} are the values of the x variable in the sample, \begin{math}\bar{x}\end{math} is the mean of the values of the x variable, \begin{math}y_{i}\end{math} are the values of the y variable in the sample, and \begin{math}\bar{y}\end{math} is the mean of the valus of the y variable.
+where \begin{math}x_{i}\end{math} are the values of the x variable in the sample, \begin{math}\bar{x}\end{math}
+ is the mean of the values of the x variable, \begin{math}y_{i}\end{math} are the values of the y variable in 
+ the sample, and \begin{math}\bar{y}\end{math} is the mean of the valus of the y variable.
 
 \begin{table}[h]
 \label{tab:game-theory}
